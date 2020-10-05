@@ -1,3 +1,4 @@
+require('dotenv').config();
 import Bot from 'node-telegram-bot-api';
 import('./botListeners');
 
