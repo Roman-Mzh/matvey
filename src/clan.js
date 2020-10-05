@@ -1,4 +1,4 @@
-import api from "./api.js";
+import api from './api.js';
 
 class Clan {
   constructor(tag) {
@@ -29,14 +29,14 @@ class Clan {
           ...part,
           fame: (res[seasonId][part.tag] || { fame: 0 }).fame + part.fame,
           repairPoints: (res[seasonId][part.tag] || { repairPoints: 0 }).repairPoints + part.repairPoints
-        }
+        };
       });
       return res;
-    }, {})
+    }, {});
     const wars = Object.values(processed);
     const lastWar = wars[wars.length - 1];
     return Object.values(lastWar)
-      .sort((a,b) => (b.fame + b.repairPoints) - (a.fame + a.repairPoints))
+      .sort((a,b) => (b.fame + b.repairPoints) - (a.fame + a.repairPoints));
   }
 }
 

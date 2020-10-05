@@ -1,6 +1,8 @@
+import d from 'dotenv';
 import Royale from './src/royale.js';
 import Bot from 'node-telegram-bot-api';
 
+d.config();
 const token = process.env.TG_TOKEN;
 const medalki = ['🥇','🥈','🥉'];
 
