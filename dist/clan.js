@@ -1,9 +1,43 @@
 "use strict";
 
+require("core-js/modules/es.symbol");
+
+require("core-js/modules/es.array.filter");
+
+require("core-js/modules/es.array.find");
+
+require("core-js/modules/es.array.for-each");
+
+require("core-js/modules/es.array.reduce");
+
+require("core-js/modules/es.array.sort");
+
+require("core-js/modules/es.date.to-string");
+
+require("core-js/modules/es.object.define-properties");
+
+require("core-js/modules/es.object.define-property");
+
+require("core-js/modules/es.object.get-own-property-descriptor");
+
+require("core-js/modules/es.object.get-own-property-descriptors");
+
+require("core-js/modules/es.object.keys");
+
+require("core-js/modules/es.object.to-string");
+
+require("core-js/modules/es.object.values");
+
+require("core-js/modules/es.promise");
+
+require("core-js/modules/web.dom-collections.for-each");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
+
+require("regenerator-runtime/runtime");
 
 var _api = _interopRequireDefault(require("./api.js"));
 
@@ -65,8 +99,9 @@ var Clan = /*#__PURE__*/function () {
               case 12:
                 _context.prev = 12;
                 _context.t0 = _context["catch"](2);
+                console.log(_context.t0);
 
-              case 14:
+              case 15:
               case "end":
                 return _context.stop();
             }

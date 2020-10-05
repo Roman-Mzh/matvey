@@ -22,7 +22,6 @@ class Clan {
   processRace({ items }) {
     const processed = items.reduce((res, cur) => {
       const { seasonId, standings } = cur;
-      console.log(cur);
       const { clan: { participants } } = standings.find(s => s.clan.tag === `#${this.tag}`);
       res[seasonId] = res[seasonId] || {};
       participants.forEach(part => {
