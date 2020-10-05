@@ -15,7 +15,7 @@ class Clan {
       this.lastUpdate = new Date();
       return this.riverData;
     } catch (e) {
-
+      console.log(e);
     }
   }
 
