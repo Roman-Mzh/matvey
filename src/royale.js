@@ -4,11 +4,11 @@ class Royale {
   constructor() {
     this.clans = {};
   }
-  async getRiverScore(tag) {
+  async getClanData(tag) {
     const clan = this.clans[tag] || new Clan(tag);
     await clan.getRiverScore();
     this.clans[tag] = clan;
-    return clan.riverData;
+    return clan;
   }
 }
 

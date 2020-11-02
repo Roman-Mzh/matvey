@@ -3,20 +3,24 @@ import api from './api.js';
 class Clan {
   constructor(tag) {
     this.tag = tag;
-    this.lastUpdate = new Date();
+    this.lastUpdate = this.lastUpdate || new Date();
   }
 
   async getRiverScore() {
-    if (this.riverData && (new Date() - this.lastUpdate) < 60000) return this.riverData; // update each clan once in a minute
-
     try {
-      const { data } = await api.get(`/clans/%23${this.tag}/riverracelog`);
-      this.riverData = this.processRace(data);
-      this.lastUpdate = new Date();
-      return this.riverData;
+      if (!this.riverData || (this.riverData && (new Date() - this.lastUpdate) > 60000)) {
+        const { data } = await api.get(`/clans/%23${this.tag}/riverracelog`);
+        const { lastWarSorted, lastWarId } = this.processRace(data);
+        this.riverData = lastWarSorted;
+        this.lastWarId = lastWarId;
+        this.lastUpdate = new Date();
+      }
     } catch (e) {
       console.log(e);
     }
+    const { riverData, lastUpdate } = this;
+
+    return { riverData, lastUpdate };
   }
 
   processRace({ items }) {
@@ -33,10 +37,14 @@ class Clan {
       });
       return res;
     }, {});
-    const wars = Object.values(processed);
+    const wars = Object.entries(processed);
     const lastWar = wars[wars.length - 1];
-    return Object.values(lastWar)
+    const lastWarId = lastWar[0];
+    const lastWarSorted = Object.values(lastWar[1])
       .sort((a,b) => (b.fame + b.repairPoints) - (a.fame + a.repairPoints));
+    return {
+      lastWarSorted, lastWarId
+    };
   }
 }
 

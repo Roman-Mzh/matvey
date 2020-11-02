@@ -31,11 +31,20 @@ motya.onText(/\/poehali\s?([\d\w]*)?\s?(\d*)/, async ({ chat: { id } }, match) =
   }
   const numberOfParticipants = match[2];
   try {
-    const lastWarParticipants = await royale.getRiverScore(tag);
-    const formattedParticipants = lastWarParticipants
+    const { riverData, lastUpdate, lastWarId } = await royale.getClanData(tag);
+    const formattedParticipants = riverData
       .slice(0, numberOfParticipants ? Math.max(numberOfParticipants, 1) : 10)
       .map((p, i) => `${((i + 1) + ' ' + p.name).slice(0,10).padEnd(10)} : ${p.fame} ${p.repairPoints}`);
-    motya.sendMessage(id, '<pre>Наши герои: \n' + formattedParticipants.join('\n') + '</pre>', { parse_mode: 'HTML' });
+    motya.sendMessage(
+      id,
+      '<pre>Наши герои: \n'
+        + `Актуально на: ${new Intl.DateTimeFormat('ru-RU', { dateStyle: 'short', timeStyle: 'short' }).format(lastUpdate)}\n`
+        + `Идентификатор войны: ${lastWarId}` + '\n'
+        + '-------------------------\n'
+        + formattedParticipants.join('\n')
+        + '</pre>',
+      { parse_mode: 'HTML' }
+    );
   } catch (e) {
     console.log(e);
   }
