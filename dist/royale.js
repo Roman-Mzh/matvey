@@ -35,9 +35,9 @@ var Royale = /*#__PURE__*/function () {
   }
 
   _createClass(Royale, [{
-    key: "getRiverScore",
+    key: "getClanData",
     value: function () {
-      var _getRiverScore = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(tag) {
+      var _getClanData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(tag) {
         var clan;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -49,7 +49,7 @@ var Royale = /*#__PURE__*/function () {
 
               case 3:
                 this.clans[tag] = clan;
-                return _context.abrupt("return", clan.riverData);
+                return _context.abrupt("return", clan);
 
               case 5:
               case "end":
@@ -59,11 +59,11 @@ var Royale = /*#__PURE__*/function () {
         }, _callee, this);
       }));
 
-      function getRiverScore(_x) {
-        return _getRiverScore.apply(this, arguments);
+      function getClanData(_x) {
+        return _getClanData.apply(this, arguments);
       }
 
-      return getRiverScore;
+      return getClanData;
     }()
   }]);
 

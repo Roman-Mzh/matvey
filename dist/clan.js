@@ -18,6 +18,8 @@ require("core-js/modules/es.object.define-properties");
 
 require("core-js/modules/es.object.define-property");
 
+require("core-js/modules/es.object.entries");
+
 require("core-js/modules/es.object.get-own-property-descriptor");
 
 require("core-js/modules/es.object.get-own-property-descriptors");
@@ -64,49 +66,59 @@ var Clan = /*#__PURE__*/function () {
     _classCallCheck(this, Clan);
 
     this.tag = tag;
-    this.lastUpdate = new Date();
+    this.lastUpdate = this.lastUpdate || new Date();
   }
 
   _createClass(Clan, [{
     key: "getRiverScore",
     value: function () {
       var _getRiverScore = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-        var _yield$api$get, data;
+        var _yield$api$get, data, _this$processRace, lastWarSorted, lastWarId, riverData, lastUpdate;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.riverData && new Date() - this.lastUpdate < 60000)) {
-                  _context.next = 2;
+                _context.prev = 0;
+
+                if (!(!this.riverData || this.riverData && new Date() - this.lastUpdate > 60000)) {
+                  _context.next = 10;
                   break;
                 }
 
-                return _context.abrupt("return", this.riverData);
-
-              case 2:
-                _context.prev = 2;
-                _context.next = 5;
+                _context.next = 4;
                 return _api["default"].get("/clans/%23".concat(this.tag, "/riverracelog"));
 
-              case 5:
+              case 4:
                 _yield$api$get = _context.sent;
                 data = _yield$api$get.data;
-                this.riverData = this.processRace(data);
+                _this$processRace = this.processRace(data), lastWarSorted = _this$processRace.lastWarSorted, lastWarId = _this$processRace.lastWarId;
+                this.riverData = lastWarSorted;
+                this.lastWarId = lastWarId;
                 this.lastUpdate = new Date();
-                return _context.abrupt("return", this.riverData);
+
+              case 10:
+                _context.next = 15;
+                break;
 
               case 12:
                 _context.prev = 12;
-                _context.t0 = _context["catch"](2);
+                _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
               case 15:
+                riverData = this.riverData, lastUpdate = this.lastUpdate;
+                return _context.abrupt("return", {
+                  riverData: riverData,
+                  lastUpdate: lastUpdate
+                });
+
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[2, 12]]);
+        }, _callee, this, [[0, 12]]);
       }));
 
       function getRiverScore() {
@@ -143,11 +155,16 @@ var Clan = /*#__PURE__*/function () {
         });
         return res;
       }, {});
-      var wars = Object.values(processed);
+      var wars = Object.entries(processed);
       var lastWar = wars[wars.length - 1];
-      return Object.values(lastWar).sort(function (a, b) {
+      var lastWarId = lastWar[0];
+      var lastWarSorted = Object.values(lastWar[1]).sort(function (a, b) {
         return b.fame + b.repairPoints - (a.fame + a.repairPoints);
       });
+      return {
+        lastWarSorted: lastWarSorted,
+        lastWarId: lastWarId
+      };
     }
   }]);
 

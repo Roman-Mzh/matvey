@@ -54,7 +54,8 @@ _["default"].onText(/\/help/, function (_ref3) {
 
 _["default"].onText(/\/poehali\s?([\d\w]*)?\s?(\d*)/, /*#__PURE__*/function () {
   var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref4, match) {
-    var id, tag, numberOfParticipants, lastWarParticipants, formattedParticipants;
+    var id, tag, numberOfParticipants, _yield$royale$getClan, riverData, lastUpdate, lastWarId, formattedParticipants;
+
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -77,32 +78,38 @@ _["default"].onText(/\/poehali\s?([\d\w]*)?\s?(\d*)/, /*#__PURE__*/function () {
             numberOfParticipants = match[2];
             _context.prev = 6;
             _context.next = 9;
-            return royale.getRiverScore(tag);
+            return royale.getClanData(tag);
 
           case 9:
-            lastWarParticipants = _context.sent;
-            formattedParticipants = lastWarParticipants.slice(0, numberOfParticipants ? Math.max(numberOfParticipants, 1) : 10).map(function (p, i) {
+            _yield$royale$getClan = _context.sent;
+            riverData = _yield$royale$getClan.riverData;
+            lastUpdate = _yield$royale$getClan.lastUpdate;
+            lastWarId = _yield$royale$getClan.lastWarId;
+            formattedParticipants = riverData.slice(0, numberOfParticipants ? Math.max(numberOfParticipants, 1) : 10).map(function (p, i) {
               return "".concat((i + 1 + ' ' + p.name).slice(0, 10).padEnd(10), " : ").concat(p.fame, " ").concat(p.repairPoints);
             });
 
-            _["default"].sendMessage(id, '<pre>Наши герои: \n' + formattedParticipants.join('\n') + '</pre>', {
+            _["default"].sendMessage(id, '<pre>Наши герои: \n' + "\u0410\u043A\u0442\u0443\u0430\u043B\u044C\u043D\u043E \u043D\u0430: ".concat(new Intl.DateTimeFormat('ru-RU', {
+              dateStyle: 'short',
+              timeStyle: 'short'
+            }).format(lastUpdate), "\n") + "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440 \u0432\u043E\u0439\u043D\u044B: ".concat(lastWarId) + '\n' + '-------------------------\n' + formattedParticipants.join('\n') + '</pre>', {
               parse_mode: 'HTML'
             });
 
-            _context.next = 17;
+            _context.next = 20;
             break;
 
-          case 14:
-            _context.prev = 14;
+          case 17:
+            _context.prev = 17;
             _context.t0 = _context["catch"](6);
             console.log(_context.t0);
 
-          case 17:
+          case 20:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[6, 14]]);
+    }, _callee, null, [[6, 17]]);
   }));
 
   return function (_x, _x2) {
