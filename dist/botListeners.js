@@ -89,10 +89,10 @@ _["default"].onText(/\/poehali\s?([\d\w]*)?\s?(\d*)/, /*#__PURE__*/function () {
               return "".concat((i + 1 + ' ' + p.name).slice(0, 10).padEnd(10), " : ").concat(p.fame, " ").concat(p.repairPoints);
             });
 
-            _["default"].sendMessage(id, "\u0410\u043A\u0442\u0443\u0430\u043B\u044C\u043D\u043E \u043D\u0430: ".concat(new Intl.DateTimeFormat('ru-RU', {
+            _["default"].sendMessage(id, "<pre>\u0410\u043A\u0442\u0443\u0430\u043B\u044C\u043D\u043E \u043D\u0430: ".concat(new Intl.DateTimeFormat('ru-RU', {
               dateStyle: 'short',
               timeStyle: 'short'
-            }).format(lastUpdate), "\n") + "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440 \u0432\u043E\u0439\u043D\u044B: ".concat(lastWarId) + '\n' + '-------------------------\n' + '<pre>Наши герои: \n' + formattedParticipants.join('\n') + '</pre>', {
+            }).format(lastUpdate), "\n") + "\u0418\u0434\u0435\u043D\u0442\u0438\u0444\u0438\u043A\u0430\u0442\u043E\u0440 \u0432\u043E\u0439\u043D\u044B: ".concat(lastWarId) + '\n' + '-------------------------\n' + 'Наши герои: \n' + formattedParticipants.join('\n') + '</pre>', {
               parse_mode: 'HTML'
             });
 

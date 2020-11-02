@@ -37,10 +37,10 @@ motya.onText(/\/poehali\s?([\d\w]*)?\s?(\d*)/, async ({ chat: { id } }, match) =
       .map((p, i) => `${((i + 1) + ' ' + p.name).slice(0,10).padEnd(10)} : ${p.fame} ${p.repairPoints}`);
     motya.sendMessage(
       id,
-      `Актуально на: ${new Intl.DateTimeFormat('ru-RU', { dateStyle: 'short', timeStyle: 'short' }).format(lastUpdate)}\n`
+      `<pre>Актуально на: ${new Intl.DateTimeFormat('ru-RU', { dateStyle: 'short', timeStyle: 'short' }).format(lastUpdate)}\n`
       + `Идентификатор войны: ${lastWarId}` + '\n'
       + '-------------------------\n'
-      + '<pre>Наши герои: \n'
+      + 'Наши герои: \n'
       + formattedParticipants.join('\n')
       + '</pre>',
       { parse_mode: 'HTML' }
